@@ -2,11 +2,12 @@
 'use strict';
 
 const meow = require('meow');
-const chalk = require('chalk');
+const chalk = require('chalk'); //chalk module allows us to color text
 const updateNotifier = require('update-notifier');
 const pkg = require('./package.json');
 const weather = require('./');
 
+//Sets the process title to the binary name defined in package.json
 const cli = meow({
 	help: [
 		'Usage',
@@ -25,11 +26,14 @@ const cli = meow({
 	]
 });
 
+//Convert Fahrenheit in Celcius
 function _toCelcius(temp) {
 	return Math.round(((temp - 32) * 5) / 9);
 }
 
+//Check if the version of the package.json is the latest. If not, there is a notification in the console
 updateNotifier({ pkg}).notify();
+
 
 weather(cli.input, (err, result) => {
 	if (err) {
